@@ -12,7 +12,7 @@ precmd() {
 
 shocker () {
     #make sure this is set to the location of the rc file
-    local rc=$HOME/Projects/linuxclishock/.shockrc
+    local rc=$HOME/.config/shock-linux/.shockrc
 
     #setting local ids to make things easier
     local shockapi=$(sed -n 's/^api-key=//p' "$rc")
