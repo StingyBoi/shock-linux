@@ -1,0 +1,11 @@
+# this is for the api key
+api-key=
+# this is for id of the shocker
+shocker-id=
+# this is for what type of thing is happening
+# only valid options are Shock Vibrate Sound (capitalization matters)
+type=Sound
+# how strong it should be (0-100)
+strength=10
+# how long should it be in miliseconds(300-65535)
+length=300
