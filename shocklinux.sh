@@ -1,15 +1,6 @@
 # make sure this only runs in a interactive shell
 [[ $- != *i* ]] && return
 
-
-#this checks for if the shell errors
-precmd() {
-    local ec=$?
-    if [[ $ec -ne 0 ]]; then
-        shocker
-    fi
-}
-
 shocker () {
     #make sure this is set to the location of the rc file
     local rc=$HOME/.config/shock-linux/.shockrc
@@ -28,17 +19,29 @@ shocker () {
       --header "OpenShockToken: $shockapi" \
       --data "$(cat <<EOF
 {
-  "shocks": [
-    {
-      "id": "$id",
-      "type": "$type",
-      "intensity": $power,
-      "duration": $length,
-      "exclusive": true
-    }
-  ],
-  "customName": "linuxshocker"
+    "shocks": [
+        {
+        "id": "$id",
+        "type": "$type",
+        "intensity": $power,
+        "duration": $length,
+        "exclusive": true
+        }
+    ],
+    "customName": "linuxshocker"
 }
 EOF
 )"
 }
+#this checks for if the shell errors
+if [[ -v ZSH_VERSION ]]; then
+    precmd() {
+        local exitcode=$?
+        if [[ $exitcode -ne 0 ]]; then
+            shocker
+        fi
+    }
+fi
+if [[ -v BASH_VERSION ]]; then
+    PROMPT_COMMAND+=('{ exitcode=$?; [[ $exitcode -ne 0 ]] && shocker; };')
+fi
