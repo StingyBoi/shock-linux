@@ -11,6 +11,8 @@ shocker () {
     local type=$(sed -n 's/^type=//p' "$rc")
     local power=$(sed -n 's/^strength=//p' "$rc")
     local length=$(sed -n 's/^length=//p' "$rc")
+    local message=$(sed -n 's/^text=//p' "$rc")
+
 
     curl --silent --output /dev/null https://api.openshock.app/2/shockers/control \
       --request POST \
@@ -32,6 +34,7 @@ shocker () {
 }
 EOF
 )"
+    echo $message
 }
 #this checks for if the shell errors
 if [[ -v ZSH_VERSION ]]; then
