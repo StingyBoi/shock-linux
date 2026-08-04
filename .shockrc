@@ -9,3 +9,6 @@ type=Sound
 strength=10
 # how long should it be in miliseconds(300-65535)
 length=300
+# what should the message be when the shocker is triggered 
+# if you want no message leave empty
+text=this is a message when thing goes off
