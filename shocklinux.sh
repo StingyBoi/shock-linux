@@ -13,6 +13,25 @@ shocker () {
     local length=$(sed -n 's/^length=//p' "$rc")
     local message=$(sed -n 's/^text=//p' "$rc")
 
+    if [[ "$power" == "range" ]]; then
+        local floorpow=$(sed -n 's/^min_strength=//p' "$rc")
+        local ceilingpow=$(sed -n 's/^max_strength=//p' "$rc")
+        power=$(($ceilingpow + 1))  
+        while [[ $power -le $floorpow ]] || [[ $power -ge $ceilingpow ]]
+        do
+            power=$(($RANDOM % 110))
+        done
+    fi
+    if [[ "$length" ==  "range" ]]; then
+        local floortime=$(sed -n 's/^min_time=//p' "$rc")
+        local ceilingtime=$(sed -n 's/^max_time=//p' "$rc")
+        length=$(($ceilingtime +1))
+        #!TODO look into making this be able to have values larger then 16 bit signed int
+        while [[ $length -le $floortime ]] || [[ $length -ge $ceilingtime ]]
+        do
+            length=$(($RANDOM))
+        done
+    fi
 
     curl --silent --output /dev/null https://api.openshock.app/2/shockers/control \
       --request POST \
@@ -34,7 +53,7 @@ shocker () {
 }
 EOF
 )"
-    echo $message
+    echo "$message"
 }
 #this checks for if the shell errors
 if [[ -v ZSH_VERSION ]]; then
@@ -46,5 +65,5 @@ if [[ -v ZSH_VERSION ]]; then
     }
 fi
 if [[ -v BASH_VERSION ]]; then
-    PROMPT_COMMAND+=('{ exitcode=$?; [[ $exitcode -ne 0 ]] && shocker; };')
+    PROMPT_COMMAND+=("{ exitcode=$?; [[ $exitcode -ne 0 ]] && shocker; };")
 fi

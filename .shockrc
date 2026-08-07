@@ -4,11 +4,20 @@ api-key=
 shocker-id=
 # this is for what type of thing is happening
 # only valid options are Shock Vibrate Sound (capitalization matters)
-type=Sound
+type=Shock
 # how strong it should be (0-100)
-strength=10
+# put range if you want to the strength to be in a range
+strength=range
+# ignore if your just doing 1 value
+min_strength=0
+max_strength=100
 # how long should it be in miliseconds(300-65535)
-length=300
+# put range if you want to have a range of time
+length=range
+#ignore if your using 1 value
+#also given how i am doing the random the max is 32767
+min_time=300
+max_time=3000
 # what should the message be when the shocker is triggered 
 # if you want no message leave empty
-text=this is a message when thing goes off
+text=get shocked
