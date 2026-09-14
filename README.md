@@ -18,3 +18,5 @@ ex: `#source $HOME/.config/shock-linux/shocklinux.sh`
 2. you can set the strength and length of them.
 3. Range options for time and length.
 4. Optionally a message can be set to be sent in the terminal when it gets activated.
+## Dependancies
+* cURL
